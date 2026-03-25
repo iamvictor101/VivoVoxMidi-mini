@@ -15,7 +15,7 @@ namespace vvmidi
             return x;
         }
 
-        midi_msg make_msg(uint8_t status, uint8_t data1, uint8_t data2)
+        midi_msg makeMsg(uint8_t status, uint8_t data1, uint8_t data2)
         {
             return ((uint32_t)status)
                 | (((uint32_t)data1) << 8)
@@ -28,35 +28,35 @@ namespace vvmidi
             data2 = (msg >> 16) & 0xFF;
         }
     #pragma region Voice
-        midi_msg make_voice_msg(Voice::Enum voice, Channel::Index channel, uint8_t lsb, uint8_t msb)
+        midi_msg makeVoiceMsg(Voice::Enum voice, Channel::Index channel, uint8_t lsb, uint8_t msb)
         {
-            return make_msg(voice | (uint8_t)channel, clamp7((uint8_t)lsb), clamp7((uint8_t)msb));
+            return makeMsg(voice | (uint8_t)channel, clamp7((uint8_t)lsb), clamp7((uint8_t)msb));
         }
         midi_msg makePlayNoteMsg(Note::Val note, Channel::Index channel, bool toggle, uint8_t velocity)
         {
-            return make_voice_msg(toggle ? Voice::NoteOn : Voice::NoteOff, channel, note, velocity);
+            return makeVoiceMsg(toggle ? Voice::NoteOn : Voice::NoteOff, channel, note, velocity);
         }
         midi_msg makeProgramChangeMsg(Channel::Index channel, Instrument::Type instrument)
         {
-            return make_voice_msg(Voice::ProgramChange, channel, instrument, 0);
+            return makeVoiceMsg(Voice::ProgramChange, channel, instrument, 0);
         }
         midi_msg makeApplyAftertouchMsg(Channel::Index channel, uint8_t pressure)
         {
-            return make_voice_msg(Voice::ChannelPressure, channel, pressure, 0);
+            return makeVoiceMsg(Voice::ChannelPressure, channel, pressure, 0);
         }
         midi_msg makeApplyPolyAftertouchMsg(Channel::Index channel, Note::Val note, uint8_t pressure)
         {
-            return make_voice_msg(Voice::PolyphonicKeyPressure, channel, note, pressure);
+            return makeVoiceMsg(Voice::PolyphonicKeyPressure, channel, note, pressure);
         }
         midi_msg makePitchBendMsg(Channel::Index channel, uint16_t value)
         {
             uint8_t lsb = value & 0x7F;
             uint8_t msb = (value >> 7) & 0x7F;
-            return make_voice_msg(Voice::PitchBend, channel, lsb, msb);
+            return makeVoiceMsg(Voice::PitchBend, channel, lsb, msb);
         }
         midi_msg makeControlChangeMsg(Control::Enum control, Channel::Index channel, uint8_t value)
         {
-            return make_voice_msg(Voice::ControlChange, channel, control, value);
+            return makeVoiceMsg(Voice::ControlChange, channel, control, value);
         }
     #pragma endregion
     #pragma region CC

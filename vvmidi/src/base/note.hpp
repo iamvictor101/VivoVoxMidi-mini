@@ -40,8 +40,7 @@ namespace vvmidi
             C8=108, Cs8=109, Db8=109, D8=110, Ds8=111, Eb8=111, E8=112, F8=113, Fs8=114, Gb8=114, G8=115, Gs8=116, Ab8=116, A8=117, As8=118, Bb8=118, B8=119,
             C9=120, Cs9=121, Db9=121, D9=122, Ds9=123, Eb9=123, E9=124, F9=125, Fs9=126, Gb9=126, G9=127,
             Max = 127,
-            Count = 128,
-            O=255,
+            Count = 128
         };
         using Pitch = Val;
         struct Def final
@@ -55,7 +54,7 @@ namespace vvmidi
     class Scale
     {
     private:
-        static constexpr const uint8_t* _intervals = Intervals<K.diatonic>::value;
+        static constexpr const uint8_t* intervals_ = Intervals<K.diatonic>::value;
     public:
         static constexpr uint8_t size = 7 * 7;
         static constexpr Note::Val make(Note::Def def) noexcept
@@ -71,7 +70,7 @@ namespace vvmidi
         {
             degree %= 7;
             uint8_t base = (octave + 1) * 12;
-            uint8_t semitone = (K.tonic.pitchClass() + _intervals[degree]) % 12;
+            uint8_t semitone = (K.tonic.pitchClass() + intervals_[degree]) % 12;
             int16_t note = base + semitone + accidental;
             return static_cast<Note::Val>(note);
         }

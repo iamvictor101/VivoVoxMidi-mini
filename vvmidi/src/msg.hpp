@@ -11,11 +11,11 @@ namespace vvmidi
 
     namespace internal
     {
-        midi_msg make_msg(uint8_t status, uint8_t data1, uint8_t data2);
+        midi_msg makeMsg(uint8_t status, uint8_t data1, uint8_t data2);
         void divi_msg(midi_msg msg, uint8_t& status, uint8_t& data1, uint8_t data2);
     #pragma region Voice
         // 控制器消息
-        midi_msg make_voice_msg(Voice::Enum voice, Channel::Index channel, uint8_t lsb, uint8_t msb);
+        midi_msg makeVoiceMsg(Voice::Enum voice, Channel::Index channel, uint8_t lsb, uint8_t msb);
         // 控制音符按下/松开
         midi_msg makePlayNoteMsg(Note::Val note, Channel::Index channel, bool toggle, uint8_t velocity = 0x7F);
         // 改变通道的乐器
