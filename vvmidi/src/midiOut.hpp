@@ -22,8 +22,6 @@ namespace vvmidi
         void setTick(Tick::Val val);
     public:
         void send(midi_msg message);
-    // public:
-    //     void playAutoNote(Note::Val note, Channel::Index channel, uint8_t velocity = 0x7F);
     public:
         // 控制音符按下/松开
         void playNote(Note::Val note, Channel::Index channel, bool toggle, uint8_t velocity = 0x7F);
